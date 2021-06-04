@@ -1,10 +1,37 @@
-const question = 'ゲーム市場、最も売れたゲーム機は次の内どれ？';
-const answers = [
-  'スーパーファミコン',
+const quiz = [
+  {
+    question: 'ゲーム市場、最も売れたゲーム機は次の内どれ？',
+    answers: [
+      'スーパーファミコン',
   'プレイステーション2', 
   '任天堂スイッチ', 
-  '任天堂Ds'];
-const correct = '任天堂Ds';
+  '任天堂Ds'
+    ],
+    correct: '任天堂Ds'
+  }, {
+    question: '糸井和里が関わった、任天堂の看板ゲームと言えば？',
+    answers: [
+      'MOTHER2',
+      'スーパーマリオブラザーズ',
+      'スーパードンキーコング',
+      '星のカービィ'
+    ],
+    correct: 'MOTHER2'
+  }, {
+    question: 'ファイナルファンタジーIVの主人公の名前は？',
+    answers: [
+      'フリオニール',
+      'クラウド',
+      'ティーダ',
+      'セシル'
+    ],
+    correct: 'セシル'
+  }
+];
+
+const quizLength = quiz.length;
+let quizIndex = 0;
+
 
 // ボタンのオブジェクトを定義
 const $button = document.getElementsByTagName('button');
@@ -13,12 +40,12 @@ const buttonLength = $button.length;
 // クイズの問題と選択肢を定義
 const setupQuiz = () => {
   // 問題文の表示
-  document.getElementById("js-question").textContent = question;
+  document.getElementById("js-question").textContent = quiz[quizIndex];
 
   // 選択肢の表示
   let buttonIndex = 0;
   while(buttonIndex < buttonLength){
-    $button[buttonIndex].textContent = answers[buttonIndex];
+    $button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
     buttonIndex++;
   }
 }
@@ -35,9 +62,16 @@ while(handlerIndex < buttonLength){
 
 // 正解判定
 const clickHandler = (e) => {
-    if(correct === e.target.textContent) {
+    if(quiz[quizIndex].correct === e.target.textContent) {
     window.alert('正解！');
   } else {
     window.alert('不正解!');
+  }
+  quizIndex++;
+  
+  if(quizIndex < quizLength){
+    setupQuiz();
+  } else {
+    window.alert('終了！');
   }
 }
