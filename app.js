@@ -31,7 +31,7 @@ const quiz = [
 
 const quizLength = quiz.length;
 let quizIndex = 0;
-
+let score = 0;
 
 // ボタンのオブジェクトを定義
 const $button = document.getElementsByTagName('button');
@@ -40,7 +40,7 @@ const buttonLength = $button.length;
 // クイズの問題と選択肢を定義
 const setupQuiz = () => {
   // 問題文の表示
-  document.getElementById("js-question").textContent = quiz[quizIndex];
+  document.getElementById("js-question").textContent = quiz[quizIndex].question;
 
   // 選択肢の表示
   let buttonIndex = 0;
@@ -64,6 +64,7 @@ while(handlerIndex < buttonLength){
 const clickHandler = (e) => {
     if(quiz[quizIndex].correct === e.target.textContent) {
     window.alert('正解！');
+    score++;
   } else {
     window.alert('不正解!');
   }
@@ -72,6 +73,6 @@ const clickHandler = (e) => {
   if(quizIndex < quizLength){
     setupQuiz();
   } else {
-    window.alert('終了！');
+    window.alert(`終了！あなたの正解率は${score}/${quizLength}です。`);
   }
 }
